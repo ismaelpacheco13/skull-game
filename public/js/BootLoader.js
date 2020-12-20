@@ -24,8 +24,7 @@ class BootLoader extends Phaser.Scene {
     }
 
     create(){
-        //CLIENT: Say to the Server that I am here. I will have a socket.id
-        this.socket = io();
+        
         //go to scene
         this.scene.start("Menu", {socket:this.socket, fromgame:false});
     }

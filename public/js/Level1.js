@@ -27,7 +27,9 @@ class Level1 extends Phaser.Scene {
         
 
         //from server
-        this.socket.on('currentPlayers', function (players) {
+        this.socket.on('currentPlayersLevel1', function (players) {
+            console.log("hola");
+            console.log(players);
             Object.keys(players).forEach(function (id) { 
                 if (players[id].active){
                     if (players[id].playerId === self.socket.id) {
@@ -94,14 +96,12 @@ class Level1 extends Phaser.Scene {
 
     addPlayer(self, playerInfo) {
 
-        self.ship = self.physics.add.image(playerInfo.x, playerInfo.y, playerInfo.texture).setOrigin(0.5, 0.5);
-
-
-        
-
-        self.ship.setDrag(100);
-        self.ship.setAngularDrag(100);
-        self.ship.setMaxVelocity(200);
+        if (typeof self.ship === 'undefined') {
+            self.ship = self.physics.add.image(playerInfo.y, playerInfo.x, playerInfo.texture).setOrigin(0.5, 0.5);
+            self.ship.setDrag(100);
+            self.ship.setAngularDrag(100);
+            self.ship.setMaxVelocity(200);
+        }
 
 
     }
@@ -110,12 +110,11 @@ class Level1 extends Phaser.Scene {
 
     addOtherPlayers(self, playerInfo) {
 
-        if (playerInfo.active){
-            const otherPlayer = self.add.sprite(playerInfo.x, playerInfo.y, playerInfo.texture).setOrigin(0.5, 0.5);
-            
-            otherPlayer.playerId = playerInfo.playerId;
-            self.otherPlayers.add(otherPlayer);
-        }
+            if (playerInfo.active){
+                const otherPlayer = self.add.sprite(playerInfo.x, playerInfo.y, playerInfo.texture).setOrigin(0.5, 0.5);
+                otherPlayer.playerId = playerInfo.playerId;
+                self.otherPlayers.add(otherPlayer);
+            }
     }
 
 

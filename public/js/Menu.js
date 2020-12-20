@@ -16,7 +16,10 @@ class Menu extends Phaser.Scene {
 
     create(){
 
-        
+        this.backgroundSprite = this.physics.add.sprite(400,300,'background');
+
+        //CLIENT: Say to the Server that I am here. I will have a socket.id
+        this.socket = io();
 
         //Create a self property = this, that will allow me to use this (scene)
         //inside the listeners of socket.io
@@ -96,7 +99,18 @@ updateActivePlayers(players,self){
         sp.destroy();
     });
 
-
+    for (let i = 0; i < self.availableTextures.length; i++) {
+        self.availableSprites[i] = this.add
+          .sprite(i * 60 + 10, 100, self.availableTextures[i])
+          .setOrigin(0, 0);
+  
+          self.availableSprites[i].setInteractive().on("pointerdown", () => {
+            self.scene.start("Level1", {            
+            texture: self.availableTextures[i],
+            socket: this.socket,
+          });
+        });
+      }
     
 
     self.numPlayersTXT.setText( self.labelNumPlayers + actives);
@@ -105,19 +119,6 @@ updateActivePlayers(players,self){
     if (actives<3){
         self.startTXT.setAlpha(1);//Show
         self.fullTXT.setAlpha(0);//Hide 
-        
-        for (let i = 0; i < self.availableTextures.length; i++) {
-            self.availableSprites[i] = this.add
-              .sprite(i * 60 + 10, 100, self.availableTextures[i])
-              .setOrigin(0, 0);
-      
-              self.availableSprites[i].setInteractive().on("pointerdown", () => {
-                self.scene.start("Level1", {            
-                texture: self.availableTextures[i],
-                socket: this.socket,
-              });
-            });
-          }
     }else {
         self.fullTXT.setAlpha(1);//Show
         self.startTXT.setAlpha(0);//Hide        
