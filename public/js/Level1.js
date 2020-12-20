@@ -109,15 +109,6 @@ class Level1 extends Phaser.Scene {
 
 
     addOtherPlayers(self, playerInfo) {
-        
-        /* if (playerInfo.active){
-            let exist = false;
-            self.otherPlayers.getChildren().forEach(function (otherPlayer) {
-                if (playerInfo.playerId === otherPlayer.playerId) {
-                    exist = true;
-                }
-            });
-        } */
 
         if (playerInfo.active){
             const otherPlayer = self.add.sprite(playerInfo.x, playerInfo.y, playerInfo.texture).setOrigin(0.5, 0.5);
