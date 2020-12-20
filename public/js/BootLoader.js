@@ -5,9 +5,8 @@ class BootLoader extends Phaser.Scene {
 
 
     preload() {
-        this.load.image('ship', 'assets/spaceShips_001.png');
-        this.load.image('otherPlayer', 'assets/enemyBlack5.png');
-        this.load.image('star', 'assets/skull.png');
+        this.load.image('background','assets/background.png')
+        this.load.image('skull', 'assets/skull.png');
   
         this.load.image("blue", "assets/blue.png");
         this.load.image("cyan", "assets/cyan.png");

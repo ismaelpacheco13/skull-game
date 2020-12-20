@@ -18,6 +18,7 @@ class Level1 extends Phaser.Scene {
         var self = this;
         
         this.otherPlayers = this.physics.add.group();
+        this.backgroundSprite = this.physics.add.sprite(400,300,'background');
 
         //send to the server that I am active 
         //send to server playerStartLevel1
@@ -82,7 +83,7 @@ class Level1 extends Phaser.Scene {
 
         this.socket.on('starLocation', function (starLocation) {
             if (self.star) self.star.destroy();
-            self.star = self.physics.add.image(starLocation.x, starLocation.y, 'star');
+            self.star = self.physics.add.image(starLocation.x, starLocation.y, 'skull');
             self.physics.add.overlap(self.ship, self.star, function () {
                 this.socket.emit('starCollected');
             }, null, self);
